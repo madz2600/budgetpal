@@ -11,6 +11,7 @@ class AppColors {
   static const Color basicGrey = Color(0xffeeeeee);
   static const Color borderGrey = Color(0xffE0E0E0);
   static const Color activeBlue = Color(0xff007BEF);
+  //static const Color activeBlue = Color(0xff65CF96);
   static const Color slidingPanel = Color(0xfffafafa);
 
 }

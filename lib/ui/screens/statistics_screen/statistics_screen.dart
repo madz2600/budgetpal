@@ -8,6 +8,7 @@ import 'package:budgetpal/ui/widgets/main_app_bar.dart';
 import 'package:budgetpal/ui/widgets/month_picker/month_picker.dart';
 import 'package:budgetpal/utils/helper.dart';
 
+import 'widgets/area_chart.dart';
 import 'widgets/block_chart.dart';
 import 'widgets/statistics_element_builder.dart';
 
@@ -21,6 +22,9 @@ class StatisticsScreen extends StatefulWidget {
 }
 
 class _StatisticsScreenState extends State<StatisticsScreen> {
+
+  bool historyView = false;
+
   @override
   void initState() {
     super.initState();
@@ -68,38 +72,57 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const MonthPicker(
-                selectType: 'exact',
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Switch(
+                    value: historyView,
+                    onChanged: (val) => setState(() => historyView = val),
+                  ),
+                  const Text('Show full history'),
+                ],
               ),
-              const SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 16.0),
-                child: Text(
-                  LocaleKeys.overview.tr(),
-                  style: AppStyles.overline,
+              if (historyView) ... [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: AreaChart(
+                    stats: state.statistics,
+                  ),
                 ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: BlockChart(
-                  stats: state.statistics,
+              ] else ... [
+                const MonthPicker(
+                  selectType: 'exact',
                 ),
-              ),
-              Center(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
                   child: Text(
-                    LocaleKeys.details.tr(),
+                    LocaleKeys.overview.tr(),
                     style: AppStyles.overline,
                   ),
                 ),
-              ),
-              const StatisticsElementBuilder(),
+                const SizedBox(
+                  height: 8,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: BlockChart(
+                    stats: state.statistics,
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    child: Text(
+                      LocaleKeys.details.tr(),
+                      style: AppStyles.overline,
+                    ),
+                  ),
+                ),
+                const StatisticsElementBuilder(),
+              ],
             ],
           ),
         );

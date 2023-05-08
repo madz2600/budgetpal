@@ -6,6 +6,8 @@ import 'package:budgetpal/domain/models/entry_date_model/entry_date.dart';
 import 'package:budgetpal/domain/models/entry_model/entry.dart';
 import 'package:budgetpal/domain/models/statistics_element_model/statistics_element.dart';
 
+import 'package:budgetpal/domain/models/entry_history.dart';
+
 class DatabaseRepository {
   final ExpensesDatabaseProvider databaseProvider;
 

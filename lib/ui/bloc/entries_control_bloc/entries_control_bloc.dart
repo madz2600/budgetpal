@@ -72,6 +72,7 @@ class EntriesControlBloc
     switch (type) {
       case 'range':
         await getRangeData(emit, year, month);
+        await getStatistics(emit, year, month);
         break;
       case 'exact':
         await getStatistics(emit, year, month);

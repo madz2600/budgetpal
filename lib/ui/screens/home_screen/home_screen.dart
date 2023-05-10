@@ -47,8 +47,8 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: [
                 const MonthPicker(
-                  //selectType: 'range',
-                  selectType: 'exact',
+                  selectType: 'range',
+                  //selectType: 'exact',
                 ),
                 DoughnutChart(stats: state.statistics),
                 const BalanceWidget(),

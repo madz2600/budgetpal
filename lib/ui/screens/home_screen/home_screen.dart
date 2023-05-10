@@ -1,3 +1,4 @@
+import 'package:budgetpal/ui/screens/home_screen/widgets/doughnut.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,7 +12,8 @@ import 'package:budgetpal/ui/widgets/entries_list.dart';
 import 'package:budgetpal/ui/widgets/main_app_bar.dart';
 import 'package:budgetpal/ui/widgets/month_picker/month_picker.dart';
 
-
+import 'package:budgetpal/ui/screens/statistics_screen/widgets/statistics_element_builder.dart';
+import 'widgets/doughnut.dart';
 import 'widgets/balance.dart';
 import 'widgets/home_leading.dart';
 
@@ -43,18 +45,23 @@ class HomeScreen extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.only(top: 8.0,),
             child: Column(
-              children: const [
-                  MonthPicker(
-                    selectType: 'range',
-                  ),
-                SizedBox(
-                  height: 20,
+              children: [
+                const MonthPicker(
+                  //selectType: 'range',
+                  selectType: 'exact',
                 ),
-                BalanceWidget(),
-                SizedBox(
+                DoughnutChart(stats: state.statistics),
+                const BalanceWidget(),
+                const SizedBox(
                   height: 8,
                 ),
-                EntriesListBuilder()
+                const EntriesListBuilder(),
+                /*
+                Visibility(
+                    child: const StatisticsElementBuilder(),
+                    visible: false,
+                ),
+                */
               ],
             ),
           );

@@ -55,20 +55,49 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
           ),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
-          floatingActionButton: FloatingActionButton.extended(
-            icon: const Icon(
-              Icons.file_download_outlined,
-              color: Colors.white,
-            ),
-            label: Text(LocaleKeys.report.tr()),
-            onPressed: state.statistics.isNotEmpty
-                ? () async {
-                    await createOpenPdf(
-                        statistics: state.statistics,
-                        reportDate: state.reportDate!);
-                  }
-                : null,
-          ),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 0.0, horizontal: 8.0),
+            child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(width: 50),
+              FloatingActionButton.extended(
+                icon: const Icon(Icons.phone),
+                onPressed: () {},
+                label: const Text('Contact advisor'),
+              ),
+              FloatingActionButton(
+                backgroundColor: fromHex('888888'),
+                /*
+                icon: const Icon(
+                  Icons.file_download_outlined,
+                  color: Colors.white,
+                ),
+                //label: Text(LocaleKeys.report.tr()),
+                //label: const Text(''),
+                onPressed: state.statistics.isNotEmpty
+                    ? () async {
+                  await createOpenPdf(
+                      statistics: state.statistics,
+                      reportDate: state.reportDate!);
+                }
+                    : null,
+
+               */
+                onPressed: state.statistics.isNotEmpty
+                    ? () async {
+                  await createOpenPdf(
+                      statistics: state.statistics,
+                      reportDate: state.reportDate!);
+                }
+                    : null,
+                child: const Icon(
+                  Icons.file_download_outlined,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),),
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -85,8 +114,11 @@ class _StatisticsScreenState extends State<StatisticsScreen> {
               if (historyView) ... [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                  child: AreaChart(
-                    stats: state.statistics,
+                  child: Container(
+                    height: 500,
+                    child: AreaChart(
+                      stats: state.statistics,
+                    ),
                   ),
                 ),
               ] else ... [
